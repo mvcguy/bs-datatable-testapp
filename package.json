@@ -1,0 +1,29 @@
+{
+  "name": "bs-datatable-testapp",
+  "version": "1.0.0",
+  "description": "test app for bs-datatable package",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=development"
+  },
+  "keywords": [
+    "bs-datatable",
+    "testapp"
+  ],
+  "author": "Shahid Ali",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "~17.0.17",
+    "css-loader": "^6.6.0",
+    "mini-css-extract-plugin": "^2.5.3",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.8.1",
+    "bs-datatable": "^1.0.18"
+  }
+}

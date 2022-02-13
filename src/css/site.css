@@ -1,0 +1,166 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+.tooltip-error .tooltip-inner {
+  max-width: 200px;
+  padding: .25rem .5rem;
+  color: red;
+  text-align: center;
+  background-color: white;
+  border-radius: .25rem;
+  border: 1px solid red;
+}
+
+.tooltip-error .tooltip-arrow::before {
+  border-top-color: red;
+}
+
+table.navTable.nowrap th, table.navTable.nowrap td {
+  white-space: nowrap;
+}
+
+table.navTable thead .sorting_desc {
+  background-image: url(../images/sort_desc.png) !important;
+}
+
+table.navTable thead .sorting_asc {
+  background-image: url(../images/sort_asc.png) !important;
+}
+
+table.navTable thead .sorting {
+  background-image: url(../images/sort_both.png);
+}
+
+table.navTable thead .sorting, table.navTable thead .sorting_asc, table.navTable thead .sorting_desc, table.navTable thead .sorting_asc_disabled, table.navTable thead .sorting_desc_disabled {
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+table.navTable thead th, table.navTable thead td {
+  padding: 10px 18px;
+  /* border-bottom: 1px solid #111; */
+}
+
+table.navTable thead th, table.navTable tfoot th {
+  font-weight: bold;
+}
+
+table.navTable th, table.navTable td {
+  box-sizing: content-box;
+}
+
+caption, th {
+  text-align: left;
+}
+
+table.navTable .form-control {
+  border: 0px;
+}
+
+.over {
+  border: 2px dashed #000;
+}
+
+.grid-header {
+  /* padding: 5px;
+    display: block;
+    border: 3px solid red;
+    height: 20px;
+    width: 120px; */
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+#dummy-data-container {
+  max-height: 70%;
+}
+
+#scroll_area_fakeData_table {
+  max-height: 500px !important;
+
+}
+
+.grid-toolbar-action {
+  margin: 2px;
+  line-height: 20px;
+  width: 30px;
+}
+
+.grid-toolbar {
+  padding: 2px !important;
+}
+
+.booking-summary li {
+  padding: 0;
+}
+
+.booking-summary .card-footer {
+  padding-top: 0;
+}
+
+input:hover, select:hover {
+  /* background: rgba(121, 169, 241, 0.534);
+    color: whitesmoke; */
+
+  color: #0d6efd;
+  border-color: #0d6efd;
+  border: 1px solid #0d6efd !important;
+}
+
+.sum-value {
+  text-align: right;
+}
+
+.actions-container {
+  margin: 5px 0px;
+}
+
+.table-hover>tbody>tr:hover {
+  --bs-table-accent-bg: rgb(13 110 253 / 7%);
+  color: #c1d7ec;
+}
+
+.table-active {
+  --bs-table-accent-bg: rgb(13 110 253 / 17%);
+  color: #c1d7ec;
+}
+
+.table-active:hover {
+  --bs-table-accent-bg: rgb(13 110 253 / 27%) !important;
+  color: #c1d7ec !important;
+}
+
+.table-active .row-marker {
+  margin: 5px 0px;
+  color: blue;
+  vertical-align: middle;
+  float: right;
+  display: initial;
+}
+
+.row-marker {
+  display: none;
+}
+
+.table td {
+  padding: 2px 0px;
+}
