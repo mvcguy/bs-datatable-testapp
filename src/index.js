@@ -9,6 +9,7 @@ jquery(document).ready(function () {
     // console.log('test is initialized');
 
     console.log('hello from index');
+    
     //
     // sample using bootstrap data grid 
     //
