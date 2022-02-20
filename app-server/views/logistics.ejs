@@ -1,11 +1,14 @@
 <h2>
-  <%= title %>
+  Order lines
 </h2>
-<% for(var i=0;i<10;i++) {%>
-  <li><strong>Entry-<%= i %></strong></li>
-  <% } %>
+
+<div id="bookinglines_container">
+
+</div>
 
   
 <script type="module">
-  bs_dt_demo.BSDataTableDemos.runDynamicDemo();
+  var data = <%-JSON.stringify(data)%>;
+  var metaData = <%-JSON.stringify(metaData)%>;
+  bs_dt_demo.BSDataTableDemos.runDynamicDemo("bookinglines_container", {data, metaData});
 </script>

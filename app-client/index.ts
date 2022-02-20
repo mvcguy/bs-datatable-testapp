@@ -9,8 +9,8 @@ export class BSDataTableDemos{
         StaticDemo.run();
     }
 
-    static runDynamicDemo(){
-        DynamicDemo.run();
+    static runDynamicDemo(containerId:string, initData){
+        DynamicDemo.run(containerId, initData);
     }
 
 }
