@@ -92,6 +92,8 @@ table.navTable .form-control {
 
 #dummy-data-container {
   max-height: 70%;
+  width: 65%;
+  margin:auto;
 }
 
 #scroll_area_fakeData_table {

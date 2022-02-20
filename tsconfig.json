@@ -3,7 +3,7 @@
     "compilerOptions": {
       "baseUrl": "./",
       "module": "es6",
-      "outDir": "./dist/",
+      "outDir": "./public",
       "sourceMap": true,
       "declaration": false,
       "moduleResolution": "node",
@@ -13,10 +13,10 @@
       "allowJs": true,
       "plugins": [{ "name": "typescript-plugin-css-modules" }],
       "typeRoots": [
-        "node_modules/@types"
+        "node_modules/@types",
       ],
       "lib": [
-        "es2017",
+        "es5",
         "dom"
       ]
     }

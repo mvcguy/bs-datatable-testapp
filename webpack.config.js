@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
 module.exports = {
-    entry: './src/index.js',
+    entry: './app-client/index.ts',
     devtool: 'inline-source-map',
     module: {
         rules: [
@@ -26,7 +26,12 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'public'),        
+        publicPath:'/',
+        library: {
+            name: "bs_dt_demo",
+            type:"umd"
+        }
     },
     plugins: [].concat(devMode ? [] : [new MiniCssExtractPlugin()]),
 };
