@@ -1,14 +1,31 @@
 <h2>
   Order lines
 </h2>
+<p>In the following example the data is fetched from the express server/backend</p>
 
-<div id="bookinglines_container">
+<div class="row">
+  <div class="col-7">
+    <div id="bookinglines_container">
 
+    </div>
+  </div>
+  <div class="col-5">
+    <ul class="list-group list-group-flush" style="margin-top: 45px;">
+      <li class="list-group-item active" aria-current="true">Facts about the BS-Datatable</li>
+      <li class="list-group-item">Very simple to setup, use this example as a guide</li>
+      <li class="list-group-item">Supports pagination and inifinite scroll(default)</li>
+      <li class="list-group-item">Can be used for in-memory data along with pagination</li>
+      <li class="list-group-item">Can be installed via NPM as a package or use the UMD from the dist</li>
+      <li class="list-group-item">Support all the html controls</li>
+      <li class="list-group-item">The API has methods for getting dirty or all records to send back to server for processing</li>
+    </ul>
+  </div>
 </div>
 
-  
+
+
 <script type="module">
   var data = <%- JSON.stringify(items) %>;
   var metaData = <%- JSON.stringify(metaData) %>;
-  bs_dt_demo.BSDataTableDemos.runDynamicDemo("bookinglines_container", {data, metaData});
+  bs_dt_demo.BSDataTableDemos.runDynamicDemo("bookinglines_container", { data, metaData });
 </script>
