@@ -1,4 +1,4 @@
-# bs-datatable tests
+# bs-datatable Samples
 A data table based on bootstrap 5 and jquery 3.5
 In this repository, two samples are provided to demonstrate how the data-table api can be used for
 1. Creating a data-table purely in memory - static data
