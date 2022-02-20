@@ -12,6 +12,8 @@ Steps:
   2. Make sure you have installed latest version Node JS (https://nodejs.org)
   3. For the code editor, i recommend Visual studio code (VS Code) which can be installed from here (https://code.visualstudio.com/)
   4. Open the cloned repository in VS Code and run the following command from the terminal in VS Code (CTRL + J)
+
+
     a. npm install
     b. npm run build
     c. npm run watch
