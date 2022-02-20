@@ -12,7 +12,6 @@ export class BSDataTableDemos{
     static runDynamicDemo(containerId:string, initData){
         DynamicDemo.run(containerId, initData);
     }
-
 }
 
 

@@ -96,11 +96,6 @@ table.navTable .form-control {
   margin:auto;
 }
 
-#scroll_area_fakeData_table {
-  max-height: 500px !important;
-
-}
-
 .grid-toolbar-action {
   margin: 2px;
   line-height: 20px;
@@ -165,4 +160,18 @@ input:hover, select:hover {
 
 .table td {
   padding: 2px 0px;
+}
+
+
+.bs-scroll {
+  max-height: 350px !important;
+
+}
+
+.bs-table{
+
+}
+
+.bs-pagination{
+
 }

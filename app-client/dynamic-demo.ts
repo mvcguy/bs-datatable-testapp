@@ -30,9 +30,12 @@ export class DynamicDemo {
             initData: bookingLines, metaData: bookingLinesMetadata
         }, true, (page) => {
             var url = 'http://localhost:3000/api/bookinglines?page=' + page;
-            console.log('Url: ', url);
+            // console.log('Url: ', url);
             return url;
         });
+        //
+        // TODO: in the grid API add a flag to control caching data returned from server
+        //
 
         var bs = new BSDataTableOptions("bookingLines", containerId, cols, dataSource);
         var grid = new BSDataTable(bs);
