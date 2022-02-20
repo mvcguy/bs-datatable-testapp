@@ -28,7 +28,11 @@ export class DynamicDemo {
 
         var dataSource = new BSDataTableDataSource('lines', {
             initData: bookingLines, metaData: bookingLinesMetadata
-        }, true, (page) => 'http://localhost:3000/api/bookinglines?page=' + page);
+        }, true, (page) => {
+            var url = 'http://localhost:3000/api/bookinglines?page=' + page;
+            console.log('Url: ', url);
+            return url;
+        });
 
         var bs = new BSDataTableOptions("bookingLines", containerId, cols, dataSource);
         var grid = new BSDataTable(bs);

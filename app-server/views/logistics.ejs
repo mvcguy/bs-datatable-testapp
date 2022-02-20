@@ -8,7 +8,7 @@
 
   
 <script type="module">
-  var data = <%-JSON.stringify(data)%>;
-  var metaData = <%-JSON.stringify(metaData)%>;
+  var data = <%- JSON.stringify(items) %>;
+  var metaData = <%- JSON.stringify(metaData) %>;
   bs_dt_demo.BSDataTableDemos.runDynamicDemo("bookinglines_container", {data, metaData});
 </script>

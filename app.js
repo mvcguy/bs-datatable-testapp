@@ -18,7 +18,7 @@ app.use("/bootstrap", express.static(path.join(__dirname, '/node_modules/bootstr
 app.use("/bootstrap-icons", express.static(path.join(__dirname, '/node_modules/bootstrap-icons')))
 
 function renderWithLayout(res, view, options) {
-  console.log(options);
+  // console.log(options);
   res.render(view, options, (err, html) => {
     // res.send(html);
     res.render('layout', {
@@ -46,8 +46,18 @@ app.get('/logistics', (req, res, next) => {
 // Web API for the test app
 //
 
+app.get('/api/bookinglines', (req, res, next) => {
+  var result = getBookingLines(getPageFromQuery(req));
+  res.send(result);
+})
+
+//
+// service methods
+//
+
 
 const bookingLines = [];
+
 const bookingLinesMetaData = (page) => {
   return {
     pageIndex: page,
@@ -73,14 +83,22 @@ function loadBookingLines() {
 
 function getBookingLines(page = 1) {
 
-  loadBookingLines();
-  data = bookingLines;
-  mdata = bookingLinesMetaData(1);
+  if (page < 1) return { items: [], metaData: undefined };
 
-  var start = page <= 1 ? 0 : (page - 1) * mdata.pageSize;
+  loadBookingLines();
+  var data = bookingLines;
+  var mdata = bookingLinesMetaData(1);
+
+  var start = page === 1 ? 0 : (page - 1) * mdata.pageSize;
   var end = start + mdata.pageSize;
   var maxIndex = data.length - 1;
-  if (start > maxIndex || end > maxIndex) return { items: [], metaData: undefined };
+
+  if (end > maxIndex)
+    end = data.length;
+  
+  console.log('start: ', start, 'end', end);
+
+  if (start > maxIndex) return { items: [], metaData: undefined };
 
   var pageData = [];
   for (let index = start; index < end; index++) {
@@ -95,22 +113,17 @@ function getBookingLines(page = 1) {
   return result;
 }
 
-app.get('/api/bookinglines', (req, res, next) => {
-  loadBookingLines();
-
-  var pageNumber = 1;
+function getPageFromQuery(req) {
+  var pageNumber = 0;
   var page = req.query.page;
   if (page) {
     try {
       pageNumber = parseInt(page);
-      if (pageNumber <= 0)
-        pageNumber = 1;
     } catch { }
   }
 
-  var result = getBookingLines(pageNumber);
-  res.send(result);
-})
+  return pageNumber;
+}
 
 if (!module.parent) {
   app.listen(port, () => {
