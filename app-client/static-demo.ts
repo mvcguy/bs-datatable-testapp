@@ -53,7 +53,7 @@ export class StaticDemo {
         grid.render();
 
 
-        var name = new BSDataTableTextInputExt({ inputType: "text", elementId: "txtName", dataSourceName: "welcome" });
+        var name = new BSDataTableTextInputExt({ InputType: "text", ElementId: "txtName", DataSourceName: "welcome" });
         name.val = "Welcome to TypeScript";
 
     }
