@@ -19,7 +19,10 @@ export class DynamicDemo {
 
         var dataSource = new BSDataTableDataSource('lines', {
             initData: bookingLines, metaData: bookingLinesMetadata
-        }, true, (page) => 'http://localhost:3000/api/bookinglines?page=' + page);
+        }, true, (page) => {
+            // debugger;
+            return 'http://localhost:3000/api/bookinglines?page=' + page;
+        });
         
         var options = new BSDataTableOptions("bookingLines", containerId, cols, dataSource);
         var grid = new BSDataTable(options);
@@ -31,21 +34,18 @@ export class DynamicDemo {
         //
 
         grid.addHandler(appDataEvents.ON_FIELD_UPDATED, (sender, e) => {
+            debugger;
             let ev = e as BSFieldUpdatedEvent;
             if (!ev) return;
             var field = ev.EventData.Field as BSDataTableInput;
             if (!field) return;
 
-            var datatable = sender as BSDataTable;
-
             var fieldName = field.modelName;
             var row = ev.EventData.Row;
 
-            // console.log('on-field-update', fieldName, row);
-            if (fieldName === 'quantity' || fieldName === 'unitCost') {
-                row.extCost.val = row.quantity.val * row.unitCost.val;
+            if (fieldName === 'qty' || fieldName === 'cost') {
+                row.extCost.val = row.qty.val * row.cost.val;
 
-                //calcSummary(sender);
             }
         });
 
