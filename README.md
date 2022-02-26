@@ -25,5 +25,5 @@ Steps:
 ![image](https://user-images.githubusercontent.com/12786083/154861361-5c4efec0-63eb-4c11-8ef5-3c33e6f619ac.png)
 
 2. Data is read from API, support pagination through callbacks
-![image](https://user-images.githubusercontent.com/12786083/154861434-bf06c90f-62c9-4909-8a53-7f8826ad23a3.png)
+![image](https://user-images.githubusercontent.com/12786083/155841553-8322309c-93ad-4e3a-96a2-d8729075be8d.png)
 
