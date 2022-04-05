@@ -165,6 +165,8 @@ input:hover, select:hover {
 
 .bs-scroll {
   max-height: 350px !important;
+  /* max-height: 200px;  */
+  overflow-y: auto
 
 }
 
