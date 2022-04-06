@@ -51,12 +51,19 @@ app.get('/api/bookinglines', (req, res, next) => {
   res.send(result);
 })
 
+app.get('/api/stockitems', (req, res, next) => {
+  var page = getPageFromQuery(req);
+  var result = getInventoryItems(page);
+  res.send(result);
+});
+
 //
-// service methods
+// service private methods
 //
 
 
 const bookingLines = [];
+const inventoryItems = [];
 
 const bookingLinesMetaData = (page) => {
   return {
@@ -66,12 +73,35 @@ const bookingLinesMetaData = (page) => {
   };
 };
 
+const inventoryMetaData = (page) => {
+  return {
+    pageIndex: page,
+    pageSize: 10,
+    totalRecords: inventoryItems.length
+  };
+}
+
+function loadInventoryItems() {
+
+  if (inventoryItems.length > 0) return;
+
+  for (let i = 0; i < 20; i++) {
+    var inventoryItem = {
+      "id": 'CS-' + i,
+      "name": 'NAME-' + i,
+    };
+
+    inventoryItems.push(inventoryItem);
+  }
+}
+
 function loadBookingLines() {
   if (bookingLines.length > 0) return;
 
   for (let index = 1; index < 20; index++) {
     var bookingLine = {
       "lineNbr": index,
+      "inventoryId": inventoryItems[parseInt(Math.random() * 100 / 10)].id,
       "desc": 'Car part-' + index,
       "qty": 5 + index,
       "cost": 120 + index,
@@ -81,21 +111,23 @@ function loadBookingLines() {
   }
 }
 
-function getBookingLines(page = 1) {
+/**
+ * @param {number} pageNumber
+ * @param {any[]} data 
+ * @param {{pageIndex: number;
+      pageSize: number;
+      totalRecords: number}} mdata
+ * @returns {{items:any[]; metaData: any}}
+ */
+function getPage(pageNumber, data, mdata) {
 
-  if (page < 1) return { items: [], metaData: undefined };
-
-  loadBookingLines();
-  var data = bookingLines;
-  var mdata = bookingLinesMetaData(1);
-
-  var start = page === 1 ? 0 : (page - 1) * mdata.pageSize;
+  var start = pageNumber === 1 ? 0 : (pageNumber - 1) * mdata.pageSize;
   var end = start + mdata.pageSize;
   var maxIndex = data.length - 1;
 
   if (end > maxIndex)
     end = data.length;
-  
+
   console.log('start: ', start, 'end', end);
 
   if (start > maxIndex) return { items: [], metaData: undefined };
@@ -105,12 +137,23 @@ function getBookingLines(page = 1) {
     const element = data[index];
     pageData.push(element);
   }
+
   var result = {
     items: pageData,
     metaData: mdata
   };
 
   return result;
+}
+
+function getInventoryItems(page = 1) {
+  if (page < 1) return { items: [], metaData: undefined };
+  return getPage(page, inventoryItems, inventoryMetaData(1));
+}
+
+function getBookingLines(page = 1) {
+  if (page < 1) return { items: [], metaData: undefined };
+  return getPage(page, bookingLines, bookingLinesMetaData(1));
 }
 
 function getPageFromQuery(req) {
@@ -126,6 +169,14 @@ function getPageFromQuery(req) {
 }
 
 if (!module.parent) {
+
+  //
+  // init global data
+  //
+
+  loadInventoryItems();
+  loadBookingLines();
+
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })

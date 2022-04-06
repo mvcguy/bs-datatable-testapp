@@ -11,11 +11,20 @@ export class DynamicDemo {
         var cols = [];
 
         cols.push(new BSDataTableColDefinition("Line nbr", "number", "80px", "lineNbr", true));
+
+        var stockSelector = new BSDataTableColDefinition("Stock item", "selector", "60px", "inventoryId");
+        stockSelector.SelectorDataCB = (page) => { return `http://localhost:3000/api/stockitems?page=${page}` };
+        stockSelector.SelectorCols = [
+            new BSDataTableColDefinition("Stock item", "text", "60px", "id", true),
+            new BSDataTableColDefinition("Description", "text", "220px", "name", false)
+        ];
+
+        cols.push(stockSelector);
+
         cols.push(new BSDataTableColDefinition("Description", "text", "220px", "desc", false));
         cols.push(new BSDataTableColDefinition("Quantity", "number", "80px", "qty", false));
         cols.push(new BSDataTableColDefinition("Unit cost", "number", "120px", "cost", false));
         cols.push(new BSDataTableColDefinition("Cost", "number", "120px", "extCost", false));
-
 
         var dataSource = new BSDataTableDataSource('lines', {
             initData: bookingLines, metaData: bookingLinesMetadata
