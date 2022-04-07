@@ -4,7 +4,6 @@ export class DynamicDemo {
     static run(containerId: string, initData) {
         console.log('running dynamic demo');
 
-
         var bookingLines = initData.data;
         var bookingLinesMetadata = initData.metaData;
 
@@ -59,5 +58,12 @@ export class DynamicDemo {
         });
 
         grid.render();
+        
+        grid.gridActions.addAction('btnSave', 'primary', 'save', (e) => { 
+            console.log('save button is called');
+            var records = grid.records;
+            console.table(records);
+        });
+
     }
 }
