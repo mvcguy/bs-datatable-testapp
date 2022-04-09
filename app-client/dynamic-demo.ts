@@ -1,4 +1,4 @@
-import { appDataEvents, BSDataTable, BSDataTableColDefinition, BSDataTableDataSource, BSDataTableInput, BSDataTableOptions, BSFieldUpdatedEvent } from "bs-datatable";
+import { appDataEvents, BSDataTable, BSDataTableColDefinition, BSDataTableDataSource, BSDataTableInput, BSDataTableOptions, BSDataTableSelectListItem, BSFieldUpdatedEvent } from "bs-datatable";
 
 export class DynamicDemo {
     static run(containerId: string, initData) {
@@ -11,6 +11,9 @@ export class DynamicDemo {
 
         cols.push(new BSDataTableColDefinition("Line nbr", "number", "80px", "lineNbr", true));
 
+        //
+        // selector window
+        //
         var stockSelector = new BSDataTableColDefinition("Stock item", "selector", "60px", "inventoryId");
         stockSelector.SelectorDataCB = (page) => { return `http://localhost:3000/api/stockitems?page=${page}` };
         stockSelector.SelectorCols = [
@@ -19,6 +22,18 @@ export class DynamicDemo {
         ];
 
         cols.push(stockSelector);
+
+
+        //
+        // select dropdown
+        //
+        var uom = new BSDataTableColDefinition("Unit of measure", "select", "120px", "uom", false,
+            [
+                new BSDataTableSelectListItem('Kilo', 'KG'),
+                new BSDataTableSelectListItem('Litre', 'LI'),
+                new BSDataTableSelectListItem('Stick', 'STK')
+            ]);
+        cols.push(uom);
 
         cols.push(new BSDataTableColDefinition("Description", "text", "220px", "desc", false));
         cols.push(new BSDataTableColDefinition("Quantity", "number", "80px", "qty", false));
@@ -31,7 +46,7 @@ export class DynamicDemo {
             // debugger;
             return 'http://localhost:3000/api/bookinglines?page=' + page;
         });
-        
+
         var options = new BSDataTableOptions("bookingLines", containerId, cols, dataSource);
         var grid = new BSDataTable(options);
         grid.registerCallbacks();
@@ -42,7 +57,7 @@ export class DynamicDemo {
         //
 
         grid.addHandler(appDataEvents.ON_FIELD_UPDATED, (sender, e) => {
-            debugger;
+            // debugger;
             let ev = e as BSFieldUpdatedEvent;
             if (!ev) return;
             var field = ev.EventData.Field as BSDataTableInput;
@@ -58,11 +73,15 @@ export class DynamicDemo {
         });
 
         grid.render();
-        
-        grid.gridActions.addAction('btnSave', 'primary', 'save', (e) => { 
+
+        grid.gridActions.addAction('btnSave', 'primary', 'save', (e) => {
             console.log('save button is called');
-            var records = grid.records;
+            var records = grid.allRecords;
+            console.log('All records:')
             console.table(records);
+
+            console.log('Dirty rows:');
+            console.table(grid.dirtyRecords);
         });
 
     }

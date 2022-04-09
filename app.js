@@ -64,6 +64,11 @@ app.get('/api/stockitems', (req, res, next) => {
 
 const bookingLines = [];
 const inventoryItems = [];
+const unitOfMeasures = [
+  { id: 1, code: "KG", desc: "Kilogram" },
+  { id: 2, code: "LI", desc: "Litre" },
+  { id: 3, code: "STK", desc: "Stick" }
+];
 
 const bookingLinesMetaData = (page) => {
   return {
@@ -99,13 +104,18 @@ function loadBookingLines() {
   if (bookingLines.length > 0) return;
 
   for (let index = 1; index < 20; index++) {
+
+    var uomRnd = parseInt(Math.random() * 3);
+    var inRnd = parseInt(Math.random() * 20);
+
     var bookingLine = {
       "lineNbr": index,
-      "inventoryId": inventoryItems[parseInt(Math.random() * 100 / 10)].id,
+      "inventoryId": inventoryItems[inRnd].id,
       "desc": 'Car part-' + index,
       "qty": 5 + index,
       "cost": 120 + index,
-      "extCost": (5 + index) * (120 + index)
+      "extCost": (5 + index) * (120 + index),
+      "uom": unitOfMeasures[uomRnd].code
     };
     bookingLines.push(bookingLine);
   }
