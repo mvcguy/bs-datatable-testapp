@@ -31,7 +31,7 @@ export class DynamicDemo {
             [
                 new BSDataTableSelectListItem('Kilo', 'KG'),
                 new BSDataTableSelectListItem('Litre', 'LI'),
-                new BSDataTableSelectListItem('Stick', 'STK')
+                new BSDataTableSelectListItem('Piece', 'PCS')
             ]);
         cols.push(uom);
 

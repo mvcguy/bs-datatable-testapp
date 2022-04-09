@@ -67,7 +67,7 @@ const inventoryItems = [];
 const unitOfMeasures = [
   { id: 1, code: "KG", desc: "Kilogram" },
   { id: 2, code: "LI", desc: "Litre" },
-  { id: 3, code: "STK", desc: "Stick" }
+  { id: 3, code: "PCS", desc: "Piece" }
 ];
 
 const bookingLinesMetaData = (page) => {
