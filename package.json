@@ -22,7 +22,7 @@
     "@types/node": "~17.0.17",
     "connect-livereload": "^0.6.1",
     "css-loader": "^6.6.0",
-    "ejs": "^3.1.6",
+    "ejs": "^3.0.2",
     "express": "^4.17.2",
     "livereload": "^0.9.3",
     "mini-css-extract-plugin": "^2.5.3",
@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "bootstrap-icons": "^1.8.1",
-    "bs-datatable": "^1.1.5"
+    "bs-datatable": "^1.1.8"
   }
 }
