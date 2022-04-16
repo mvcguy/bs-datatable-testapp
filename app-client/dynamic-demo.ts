@@ -63,7 +63,7 @@ export class DynamicDemo {
             var field = ev.EventData.Field as BSDataTableInput;
             if (!field) return;
 
-            var fieldName = field.modelName;
+            var fieldName = field.options.ModelName;
             var row = ev.EventData.Row;
 
             if (fieldName === 'qty' || fieldName === 'cost') {
