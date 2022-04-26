@@ -158,12 +158,12 @@ function getPage(pageNumber, data, mdata) {
 
 function getInventoryItems(page = 1) {
   if (page < 1) return { items: [], metaData: undefined };
-  return getPage(page, inventoryItems, inventoryMetaData(1));
+  return getPage(page, inventoryItems, inventoryMetaData(page));
 }
 
 function getBookingLines(page = 1) {
   if (page < 1) return { items: [], metaData: undefined };
-  return getPage(page, bookingLines, bookingLinesMetaData(1));
+  return getPage(page, bookingLines, bookingLinesMetaData(page));
 }
 
 function getPageFromQuery(req) {

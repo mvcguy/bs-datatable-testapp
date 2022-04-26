@@ -48,6 +48,7 @@ export class DynamicDemo {
         });
 
         var options = new BSDataTableOptions("bookingLines", containerId, cols, dataSource);
+        options.enableInfiniteScroll = false;
         var grid = new BSDataTable(options);
         grid.registerCallbacks();
 

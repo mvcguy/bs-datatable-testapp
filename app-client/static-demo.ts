@@ -47,11 +47,10 @@ export class StaticDemo {
             });
 
         var bs = new BSDataTableOptions("fakeData_table", "dummy-data-container", cols, dataSource);
-
+        bs.enableInfiniteScroll = false;
         var grid = new BSDataTable(bs);
         grid.registerCallbacks();
         grid.render();
-
 
         var name = new BSDataTableTextInputExt({ InputType: "text", ElementId: "txtName", DataSourceName: "welcome" });
         name.val = "Welcome to TypeScript";
