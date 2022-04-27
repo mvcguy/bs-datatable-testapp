@@ -10,13 +10,12 @@ export class StaticDemo {
         //
         // sample using bootstrap data grid 
         //
-        var cols = [];
+        var cols: BSDataTableColDefinition[] = [];
         var initData = [];
 
         var totCols = 5, totRows = 60;
         for (let i = 0; i < totCols; i++) {
-            cols.push(new BSDataTableColDefinition("COL-" + i, "text", "180px", "col-" + i, false));
-
+            cols.push({ DisplayName: "COL-" + i, DataType: "text", Width: "180px", PropName: "col-" + i });
         }
 
         for (let i = 0; i < totRows; i++) {
@@ -28,12 +27,14 @@ export class StaticDemo {
             initData.push(record);
         }
 
-        var dataSource = new BSDataTableDataSource('fakeData',
-            {
+        var dataSource: BSDataTableDataSource = {
+            name: 'fakeData',
+            data: {
                 initData,
                 metaData: new BSDataTablePagingMetaData(1, 5, totRows)
-            }, false, null,
-            (page, data, mdata) => {
+            },
+            isRemote: false,
+            getPageOfflineCB: (page, data, mdata) => {
                 var start = page <= 1 ? 0 : (page - 1) * mdata.pageSize;
                 var end = start + mdata.pageSize;
                 var maxIndex = data.length - 1;
@@ -44,9 +45,15 @@ export class StaticDemo {
                     pageData.push(element);
                 }
                 return pageData;
-            });
+            }
+        };
 
-        var bs = new BSDataTableOptions("fakeData_table", "dummy-data-container", cols, dataSource);
+        var bs: BSDataTableOptions = {
+            gridId: "fakeData_table", containerId: "dummy-data-container",
+            colDefinition: cols,
+            dataSource: dataSource,
+            enableInfiniteScroll: false
+        }
         bs.enableInfiniteScroll = false;
         var grid = new BSDataTable(bs);
         grid.registerCallbacks();

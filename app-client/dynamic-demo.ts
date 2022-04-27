@@ -7,18 +7,18 @@ export class DynamicDemo {
         var bookingLines = initData.data;
         var bookingLinesMetadata = initData.metaData;
 
-        var cols = [];
+        var cols: BSDataTableColDefinition[] = [];
 
-        cols.push(new BSDataTableColDefinition("Line nbr", "number", "80px", "lineNbr", true));
+        cols.push({ DisplayName: "Line nbr", DataType: "number", Width: "80px", PropName: "lineNbr", IsKey: true });
 
         //
         // selector window
         //
-        var stockSelector = new BSDataTableColDefinition("Stock item", "selector", "60px", "inventoryId");
+        var stockSelector: BSDataTableColDefinition = { DisplayName: "Stock item", DataType: "selector", Width: "60px", PropName: "inventoryId" };
         stockSelector.SelectorDataCB = (page) => { return `http://localhost:3000/api/stockitems?page=${page}` };
         stockSelector.SelectorCols = [
-            new BSDataTableColDefinition("Stock item", "text", "60px", "id", true),
-            new BSDataTableColDefinition("Description", "text", "220px", "name", false)
+            { DisplayName: "Stock item", DataType: "text", Width: "60px", PropName: "id", IsKey: true },
+            { DisplayName: "Description", DataType: "text", Width: "220px", PropName: "name" }
         ];
 
         cols.push(stockSelector);
@@ -27,27 +27,36 @@ export class DynamicDemo {
         //
         // select dropdown
         //
-        var uom = new BSDataTableColDefinition("Unit of measure", "select", "120px", "uom", false,
-            [
-                new BSDataTableSelectListItem('Kilo', 'KG'),
-                new BSDataTableSelectListItem('Litre', 'LI'),
-                new BSDataTableSelectListItem('Piece', 'PCS')
-            ]);
+        var uom: BSDataTableColDefinition = {
+            DisplayName: "Unit of measure", DataType: "select", Width: "120px", PropName: "uom",
+            SelectList:
+                [
+                    { text: 'Kilo', value: 'KG' },
+                    { text: 'Litre', value: 'LI' },
+                    { text: 'Piece', value: 'PCS' }
+                ]
+        };
         cols.push(uom);
 
-        cols.push(new BSDataTableColDefinition("Description", "text", "220px", "desc", false));
-        cols.push(new BSDataTableColDefinition("Quantity", "number", "80px", "qty", false));
-        cols.push(new BSDataTableColDefinition("Unit cost", "number", "120px", "cost", false));
-        cols.push(new BSDataTableColDefinition("Cost", "number", "120px", "extCost", false));
+        cols.push({ DisplayName: "Description", DataType: "text", Width: "220px", PropName: "desc" });
+        cols.push({ DisplayName: "Quantity", DataType: "number", Width: "80px", PropName: "qty" });
+        cols.push({ DisplayName: "Unit cost", DataType: "number", Width: "120px", PropName: "cost" });
+        cols.push({ DisplayName: "Cost", DataType: "number", Width: "120px", PropName: "extCost" });
 
-        var dataSource = new BSDataTableDataSource('lines', {
-            initData: bookingLines, metaData: bookingLinesMetadata
-        }, true, (page) => {
-            // debugger;
-            return 'http://localhost:3000/api/bookinglines?page=' + page;
-        });
+        var dataSource: BSDataTableDataSource = {
+            name: 'lines',
+            data: {
+                initData: bookingLines,
+                metaData: bookingLinesMetadata
+            },
+            isRemote: true,
+            url: (page) => {
+                // debugger;
+                return 'http://localhost:3000/api/bookinglines?page=' + page;
+            }
+        };
 
-        var options = new BSDataTableOptions("bookingLines", containerId, cols, dataSource);
+        var options: BSDataTableOptions = { gridId: "bookingLines", containerId, colDefinition: cols, dataSource };
         options.enableInfiniteScroll = false;
         var grid = new BSDataTable(options);
         grid.registerCallbacks();
