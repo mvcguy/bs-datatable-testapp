@@ -59,7 +59,7 @@ export class DynamicDemo {
         var options: BSDataTableOptions = { gridId: "bookingLines", containerId, colDefinition: cols, dataSource };
         options.enableInfiniteScroll = false;
         var grid = new BSDataTable(options);
-        grid.registerCallbacks();
+        grid.RegisterCallbacks();
 
         //
         // lets say we have to calculate ext cost using the unit cost and quantity
@@ -82,7 +82,7 @@ export class DynamicDemo {
             }
         });
 
-        grid.render();
+        grid.Render();
 
         grid.gridActions.addAction('btnSave', 'primary', 'save', (e) => {
             console.log('save button is called');

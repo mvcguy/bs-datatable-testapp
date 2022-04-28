@@ -1,66 +1,64 @@
-import { BSDataTable, BSDataTableColDefinition, BSDataTableDataSource, BSDataTableOptions, BSDataTablePagingMetaData, BSDataTableTextInputExt } from "bs-datatable"
+import {
+    BSDataTable, BSFluentBuilder, BSDataTableColDefinition, BSDataTableDataSource,
+    BSDataTableOptions, BSDataTablePagingMetaData, BSDataTableTextInputExt
+} from "bs-datatable"
 
 export class StaticDemo {
 
     static run() {
-        // console.log('test is initialized');
-
-        console.log('hello from index');
-
         //
         // sample using bootstrap data grid 
         //
-        var cols: BSDataTableColDefinition[] = [];
-        var initData = [];
 
+        var tableBuilder = BSFluentBuilder.CreateBuilder()
+            .SetDataSourceName('Customers')
+            .SetId('grid')
+            .SetContainerId('customers_container')
+            .IsReadonly(false)
+            .IsRemote(false)
+            .EnableInfiniteScroll(true)
+            .CacheResponses(false);
+
+        // Add columns
         var totCols = 5, totRows = 60;
         for (let i = 0; i < totCols; i++) {
-            cols.push({ DisplayName: "COL-" + i, DataType: "text", Width: "180px", PropName: "col-" + i });
+            tableBuilder.AddColumn(col => {
+                col.DisplayName = "COL-" + i;
+                col.PropName = "col-" + i;
+                col.Width = "180px";
+                col.DataType = "text";
+            });
         }
 
-        for (let i = 0; i < totRows; i++) {
+        // Add some initial data
+        tableBuilder.AddInitData(config => {
+            for (let i = 0; i < totRows; i++) {
 
-            var record = {};
-            for (let j = 0; j < totCols; j++) {
-                record['col-' + j] = 'DATA-' + i + '-' + j;
-            }
-            initData.push(record);
-        }
-
-        var dataSource: BSDataTableDataSource = {
-            name: 'fakeData',
-            data: {
-                initData,
-                metaData: new BSDataTablePagingMetaData(1, 5, totRows)
-            },
-            isRemote: false,
-            getPageOfflineCB: (page, data, mdata) => {
-                var start = page <= 1 ? 0 : (page - 1) * mdata.pageSize;
-                var end = start + mdata.pageSize;
-                var maxIndex = data.length - 1;
-                if (start > maxIndex || end > maxIndex) return [];
-                var pageData = [];
-                for (let index = start; index < end; index++) {
-                    const element = data[index];
-                    pageData.push(element);
+                var record = {};
+                for (let j = 0; j < totCols; j++) {
+                    record['col-' + j] = 'DATA-' + i + '-' + j;
                 }
-                return pageData;
+                config.initData.push(record);
             }
-        };
+            config.metaData = new BSDataTablePagingMetaData(1, 10, totRows);
+        })
 
-        var bs: BSDataTableOptions = {
-            gridId: "fakeData_table", containerId: "dummy-data-container",
-            colDefinition: cols,
-            dataSource: dataSource,
-            enableInfiniteScroll: false
-        }
-        bs.enableInfiniteScroll = false;
-        var grid = new BSDataTable(bs);
-        grid.registerCallbacks();
-        grid.render();
+        // render data table
+        var table = tableBuilder
+            .Build()
+            .RegisterCallbacks()
+            .Render();
+        
+        // customize grid actions
+        table.gridActions.addAction('btnSave', 'primary', 'save', (e) => {
+            console.log('save button is called');
+            var records = table.allRecords;
+            console.log('All records:')
+            console.table(records);
 
-        var name = new BSDataTableTextInputExt({ InputType: "text", ElementId: "txtName", DataSourceName: "welcome" });
-        name.val = "Welcome to TypeScript";
+            console.log('Dirty rows:');
+            console.table(table.dirtyRecords);
+        });
 
     }
 }
