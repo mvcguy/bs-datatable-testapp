@@ -1,7 +1,4 @@
-import {
-    BSDataTable, BSFluentBuilder, BSDataTableColDefinition, BSDataTableDataSource,
-    BSDataTableOptions, BSDataTablePagingMetaData, BSDataTableTextInputExt
-} from "bs-datatable"
+import { BSFluentBuilder, BSDataTablePagingMetaData } from "bs-datatable"
 
 export class StaticDemo {
 
@@ -48,7 +45,7 @@ export class StaticDemo {
             .Build()
             .RegisterCallbacks()
             .Render();
-        
+
         // customize grid actions
         table.gridActions.addAction('btnSave', 'primary', 'save', (e) => {
             console.log('save button is called');
